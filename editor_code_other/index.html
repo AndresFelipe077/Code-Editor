@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Editor</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
+</head>
+<body class="flex items-center justify-center h-screen bg-black">
+  <div class="flex items-center justify-center w-full h-full">
+    <div id="lineNumbers" class="flex-none w-12 p-4 bg-gray-200"></div>
+    <div class="flex-1 p-6 bg-white shadow-lg rounded-lg">
+      <h2 class="text-2xl font-semibold mb-4">Your code here!!!</h2>
+      <textarea id="editorTextArea" class="w-full h-80 p-4 bg-gray-100 rounded-lg resize-none border-2 border-gray-300 focus:outline-none focus:border-blue-500"></textarea>
+    </div>
+    <div class="flex-1 p-6 bg-white shadow-lg rounded-lg ml-6">
+      <h2 class="text-2xl font-semibold mb-4">Output</h2>
+      <iframe id="editorResult" class="w-full h-80 bg-gray-100 rounded-lg border-2 border-gray-300"></iframe>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script>
+    const editorTextArea = document.getElementById('editorTextArea');
+    const editorResult = document.getElementById('editorResult');
+    const lineNumbers = document.getElementById('lineNumbers');
+
+    const codeEditor = CodeMirror(editorResult, {
+      value: editorTextArea.value,
+      mode: 'htmlmixed',
+      theme: 'dracula',
+      lineNumbers: true,
+      autofocus: true,
+      readOnly: true,
+    });
+
+    function updateOutput() {
+      const code = editorTextArea.value;
+      editorResult.srcdoc = `<style>*{font-family: 'Arial', sans-serif;} body{margin: 0;}</style>${code}`;
+    }
+
+    editorTextArea.addEventListener('input', () => {
+      updateOutput();
+      updateLineNumbers();
+    });
+
+    function updateLineNumbers() {
+      const lines = editorTextArea.value.split('\n').length;
+      let lineNumbersHtml = '';
+      for (let i = 1; i <= lines; i++) {
+        lineNumbersHtml += `<div class="text-right text-gray-500">${i}</div>`;
+      }
+      lineNumbers.innerHTML = lineNumbersHtml;
+    }
+
+    // Initial update
+    updateOutput();
+    updateLineNumbers();
+  </script>
+</body>
+</html>

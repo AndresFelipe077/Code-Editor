@@ -1,20 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editor Code</title>
-  <link rel="stylesheet" href="styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  
-  <div class="contenedor">
-    <textarea onkeyup="actualizar()" class="texto_ingresado" id="texto_ingresado" placeholder="Your code here!!!"></textarea>
-    <iframe class="editor" id="editor" srcdoc="Result here"></iframe>
-  </div>
 
+<body>
+
+  <div class="flex items-center justify-center h-screen bg-black">
+    
+    <div class="w-2/5 h-3/5 p-6 bg-white shadow-lg rounded-lg flex flex-col justify-between">
+      <h2 class="text-2xl font-semibold mb-4">Your code here!!!</h2>
+      <textarea onkeyup="actualizar()" id="texto_ingresado" class="w-full h-4/5 p-4 bg-gray-100 rounded-lg resize-none border-2 border-gray-300 focus:outline-none focus:border-blue-500" placeholder="<h1>Hello, <u>Code Editor</u></h1>"></textarea>
+    </div>
+    <div class="w-2/5 h-3/5 p-6 bg-white shadow-lg rounded-lg ml-6 flex flex-col justify-between">
+      <h2 class="text-2xl font-semibold mb-4">Code</h2>
+      <iframe class="w-full h-4/5 p-4 bg-gray-100 rounded-lg resize-none border-2 border-gray-300 focus:outline-none focus:border-blue-500" id="editor"
+          srcdoc="Result here"></iframe>
+    </div>
+  </div>
 
   <script src="main.js"></script>
 
 </body>
+
 </html>
